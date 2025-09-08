@@ -16,7 +16,7 @@ class DataConfig:
         self.quantidade_metro_quadrado = quantidade_metro_quadrado
 
 #variaveis para configuração pre definida pelo grupo
-tipo_area = ["Retângulo","Quadrado"]
+tipo_area = ["Retângulo","Quadrado","Circulo","Triângulo"]
 data_config = [DataConfig("Café", tipo_area[0], "Adubo", 200), DataConfig("Soja", tipo_area[1], "Inoculante", 100)]
 
 #vetor principal da memoria
@@ -204,6 +204,34 @@ def process() -> Data:
             except ValueError:
                 print(f"Valor {entrada} digitado é inválido, por favor digite apenas um número.")
         area = lado  ** 2
+    elif data_config[id_cultura].tipo_area == "Circulo":
+        raio = 0.0
+        while True:            
+            entrada = input("Por favor informe a medida do raio:")
+            try:
+                raio = float(entrada)
+                break
+            except ValueError:
+                print(f"Valor {entrada} digitado é inválido, por favor digite apenas um número.")
+        area = (3.1416 * raio**2)
+    elif data_config[id_cultura].tipo_area == "Triângulo":
+        base = 0.0
+        altura = 0.0
+        while True:            
+            entrada = input("Por favor informe a base:")
+            try:
+                base = float(entrada)
+                break
+            except ValueError:
+                print(f"Valor {entrada} digitado é inválido, por favor digite apenas um número.")
+        while True:            
+            entrada = input("Por favor informe a altura:")
+            try:
+                altura = float(entrada)
+                break
+            except ValueError:
+                print(f"Valor {entrada} digitado é inválido, por favor digite apenas um número.")
+        area = (base * altura) / 2
 
     # Calcular Insumo
     clear_screen()
@@ -221,9 +249,10 @@ def process() -> Data:
     print(f"O plantio da cultura {data_config[id_cultura].nome_cultura} na área do tipo {data_config[id_cultura].tipo_area} do total de {area}m² precisa de {quantidade_insumo} litros/kg de {data_config[id_cultura].tipo_insumo}")
     return Data(id_cultura, area, quantidade_insumo)
 
+#limpa terminal (windows ou unix)
 def clear_screen():
-    #limpa terminal (windows ou unix)
     os.system('cls' if os.name == 'nt' else 'clear')
 
+#inicia o processo
 if __name__ == "__main__":
     main()
